@@ -1,0 +1,451 @@
+/* ════════════════════════════════════════
+   EUROCAR FINDER — styles.css
+   ════════════════════════════════════════ */
+
+/* ── DARK MODE (Lotus-inspired) ── */
+[data-theme="dark"] {
+  --bg:         #080a0e;
+  --bg2:        #0d1017;
+  --surface:    #111520;
+  --surface2:   #161b28;
+  --border:     #1e2435;
+  --border2:    #252d42;
+  --accent:     #FFF200;
+  --accent-dim: rgba(255,242,0,0.08);
+  --text:       #eef0f5;
+  --text2:      #eef0f5;
+  --text3:      rgba(238,240,245,0.55);
+  --logo-fill:  #ffffff;
+  --hero-over:  rgba(8,10,14,0.55);
+  --card-hover: rgba(255,242,0,0.04);
+  --grid-line:  rgba(255,255,255,0.03);
+}
+
+/* ── LIGHT MODE (Lexus-inspired) ── */
+[data-theme="light"] {
+  --bg:         #f2f2f2;
+  --bg2:        #e8e8e8;
+  --surface:    #ffffff;
+  --surface2:   #f7f7f7;
+  --border:     #dedede;
+  --border2:    #c8c8c8;
+  --accent:     #ecb493;
+  --accent-dim: rgba(236,180,147,0.1);
+  --text:       #0e0e0e;
+  --text2:      #0e0e0e;
+  --text3:      #0e0e0e;
+  --logo-fill:  #0e0e0e;
+  --hero-over:  rgba(242,242,242,0.6);
+  --card-hover: rgba(236,180,147,0.06);
+  --grid-line:  rgba(0,0,0,0.04);
+}
+
+/* ════ RESET ════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 400;
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background 0.4s, color 0.4s;
+}
+
+/* ════════════════════ NAV ════════════════════ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+  height: 62px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2.5rem;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.4s, border-color 0.4s;
+}
+
+.nav-logo { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; }
+.nav-logo svg rect { fill: var(--logo-fill); transition: fill 0.4s; }
+
+.nav-wordmark {
+  font-size: 0.95rem; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--text); transition: color 0.4s;
+}
+.nav-wordmark em { font-style: normal; color: var(--accent); }
+
+.nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+.nav-links a {
+  color: var(--text2); text-decoration: none;
+  font-size: 0.85rem; font-weight: 500; letter-spacing: 0.04em;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--accent); }
+
+.nav-right { display: flex; align-items: center; gap: 0.75rem; }
+
+.theme-btn {
+  background: var(--surface); border: 1px solid var(--border);
+  color: var(--text2); width: 34px; height: 34px; border-radius: 7px;
+  cursor: pointer; font-size: 0.9rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.2s, color 0.2s;
+}
+.theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+.btn-cta {
+  background: var(--accent); color: #000; border: none;
+  padding: 0.42rem 1.1rem; border-radius: 6px;
+  font-family: 'Outfit', sans-serif; font-size: 0.85rem;
+  font-weight: 600; letter-spacing: 0.05em;
+  cursor: pointer; text-decoration: none;
+  transition: opacity 0.2s;
+}
+.btn-cta:hover { opacity: 0.82; }
+
+/* ════════════════════ HERO ════════════════════ */
+.hero {
+  position: relative; min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 64px 1.5rem 3rem;
+  overflow: hidden;
+}
+
+/* VIDEO PLACEHOLDER
+   Swap .hero-bg div for <video> when S3 is ready:
+   <video class="hero-bg" autoplay muted loop playsinline>
+     <source src="https://YOUR-BUCKET.s3.amazonaws.com/hero.mp4" type="video/mp4">
+   </video> */
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background: var(--bg2);
+}
+
+/* When using real video, add this to keep it covering the area */
+video.hero-bg {
+  object-fit: cover; width: 100%; height: 100%;
+}
+
+.hero-grid {
+  position: absolute; inset: 0; z-index: 1;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse 90% 75% at 50% 50%, black 10%, transparent 80%);
+}
+
+.hero-glow {
+  position: absolute; z-index: 1;
+  top: 15%; left: 50%; transform: translateX(-50%);
+  width: 800px; height: 500px;
+  background: radial-gradient(ellipse, var(--accent-dim) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.hero-overlay {
+  position: absolute; inset: 0; z-index: 2;
+  background: linear-gradient(to bottom, var(--hero-over) 0%, transparent 40%, var(--bg) 100%);
+}
+
+.hero-content {
+  position: relative; z-index: 3;
+  display: flex; flex-direction: column; align-items: center;
+  animation: up 0.9s ease both;
+}
+
+.hero-label {
+  font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 1.6rem; opacity: 0.9;
+}
+
+.hero-h1 {
+  font-size: clamp(2.8rem, 7.5vw, 6rem);
+  font-weight: 200; letter-spacing: -0.025em; line-height: 1.02;
+  margin-bottom: 0.4em; color: var(--text);
+}
+.hero-h1 b { font-weight: 700; }
+
+.hero-p {
+  font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+  font-weight: 300; color: var(--text2);
+  max-width: 440px; line-height: 1.75;
+  letter-spacing: 0.02em; margin-bottom: 2.8rem;
+}
+
+/* ════════════════════ SEARCH ════════════════════ */
+.search-wrap {
+  position: relative; z-index: 3;
+  width: 100%; max-width: 840px;
+  animation: up 0.9s 0.12s ease both;
+}
+
+.search-box {
+  background: var(--surface); border: 1px solid var(--border2);
+  border-radius: 14px; padding: 1.4rem;
+  box-shadow: 0 30px 90px rgba(0,0,0,0.35), 0 0 0 1px var(--accent-dim);
+  transition: background 0.4s, border-color 0.4s;
+}
+
+.s-row {
+  display: grid; grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 0.7rem; margin-bottom: 0.7rem;
+}
+
+.sf label {
+  display: block; font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--text3); margin-bottom: 0.35rem;
+}
+
+.sf input, .sf select,
+.s-adv input, .s-adv select {
+  width: 100%; background: var(--bg2); border: 1px solid var(--border);
+  color: var(--text); padding: 0.62rem 0.85rem; border-radius: 7px;
+  font-family: 'Outfit', sans-serif; font-size: 0.875rem; font-weight: 400;
+  outline: none; appearance: none; transition: border-color 0.2s;
+}
+.sf input::placeholder, .s-adv input::placeholder { color: var(--text3); }
+.sf input:focus, .sf select:focus,
+.s-adv input:focus, .s-adv select:focus { border-color: var(--accent); }
+.sf select option, .s-adv select option { background: var(--surface); }
+
+.s-adv { display: flex; gap: 0.7rem; }
+.s-adv input, .s-adv select { padding: 0.54rem 0.85rem; font-size: 0.84rem; flex: 1; }
+
+.btn-search {
+  background: var(--accent); color: #000; border: none;
+  padding: 0.62rem 1.6rem; border-radius: 7px;
+  font-family: 'Outfit', sans-serif; font-size: 0.9rem;
+  font-weight: 700; letter-spacing: 0.05em;
+  cursor: pointer; align-self: end; white-space: nowrap;
+  transition: opacity 0.2s, transform 0.15s;
+}
+.btn-search:hover { opacity: 0.85; transform: translateY(-1px); }
+.btn-search:active { transform: translateY(0); }
+
+/* ════════════════════ STATS ════════════════════ */
+.hero-stats {
+  position: relative; z-index: 3;
+  display: flex; gap: 2.8rem; margin-top: 2.5rem;
+  animation: up 0.9s 0.24s ease both;
+}
+.hs { text-align: center; }
+.hs-n {
+  font-size: 1.7rem; font-weight: 700;
+  color: var(--accent); line-height: 1;
+}
+.hs-l {
+  font-size: 0.7rem; font-weight: 400;
+  letter-spacing: 0.1em; color: var(--text3);
+  text-transform: uppercase; margin-top: 0.2rem;
+}
+
+/* ════════════════════ LAYOUT ════════════════════ */
+.section { max-width: 1300px; margin: 0 auto; padding: 5rem 2rem; }
+.sec-head {
+  display: flex; align-items: baseline;
+  justify-content: space-between; margin-bottom: 2.25rem;
+}
+.sec-title { font-size: 1.3rem; font-weight: 600; letter-spacing: -0.01em; }
+.sec-meta { font-size: 0.78rem; color: var(--text3); letter-spacing: 0.04em; }
+hr.div { border: none; border-top: 1px solid var(--border); margin: 0 2rem; }
+
+/* ════════════════════ CAR CARDS ════════════════════ */
+.cars-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 1.1rem;
+}
+
+.car-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 11px; overflow: hidden;
+  text-decoration: none; color: inherit; display: block;
+  position: relative;
+  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s, background 0.4s;
+}
+.car-card:hover {
+  background: var(--card-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 44px rgba(0,0,0,0.28);
+}
+
+/* ── Brand accent stripe — supports solid colors AND gradients ── */
+.car-card::before {
+  content: ''; position: absolute;
+  left: 0; top: 0; bottom: 0; width: 4px;
+  border-radius: 11px 0 0 11px;
+  background: var(--bc, var(--accent));  /* --bc can be a color OR a gradient */
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+.car-card:hover::before { opacity: 1; }
+
+/* ── Thumbnail ── */
+.car-thumb {
+  height: 168px; position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  /* fuel-type background set via inline style from JS */
+}
+
+/* Fuel-type gradient backgrounds */
+.car-thumb.fuel-gasolina  { background: linear-gradient(135deg, #1a0a0a 0%, #2d1010 50%, #1a0e05 100%); }
+.car-thumb.fuel-diesel    { background: linear-gradient(135deg, #080d1a 0%, #0d1525 50%, #060b18 100%); }
+.car-thumb.fuel-electrico { background: linear-gradient(135deg, #040f0f 0%, #071a14 50%, #040d0a 100%); }
+.car-thumb.fuel-hibrido   { background: linear-gradient(135deg, #0d0814 0%, #160d22 50%, #0a0610 100%); }
+
+[data-theme="light"] .car-thumb.fuel-gasolina  { background: linear-gradient(135deg, #fff0ed 0%, #ffe4df 100%); }
+[data-theme="light"] .car-thumb.fuel-diesel    { background: linear-gradient(135deg, #eef2ff 0%, #dde7ff 100%); }
+[data-theme="light"] .car-thumb.fuel-electrico { background: linear-gradient(135deg, #edfff6 0%, #d4f7e5 100%); }
+[data-theme="light"] .car-thumb.fuel-hibrido   { background: linear-gradient(135deg, #f5f0ff 0%, #e8d9ff 100%); }
+
+/* Brand logo inside thumbnail */
+.car-brand-logo {
+  width: 80px; height: 80px; object-fit: contain;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
+  z-index: 1; position: relative;
+  transition: transform 0.3s;
+}
+.car-card:hover .car-brand-logo { transform: scale(1.05); }
+
+/* Fallback text if logo image fails */
+.car-brand-fallback {
+  font-size: 1.1rem; font-weight: 700; letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.6); z-index: 1;
+  text-transform: uppercase;
+}
+[data-theme="light"] .car-brand-fallback { color: rgba(0,0,0,0.4); }
+
+/* fuel badge */
+.bf {
+  position: absolute; top: 0.65rem; left: 0.85rem;
+  padding: 0.2rem 0.5rem; border-radius: 5px; z-index: 2;
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+}
+.bf-gasolina  { background:rgba(239,68,68,.2);   color:#fca5a5; border:1px solid rgba(239,68,68,.35); }
+.bf-diesel    { background:rgba(96,165,250,.2);  color:#93c5fd; border:1px solid rgba(96,165,250,.35); }
+.bf-electrico { background:rgba(52,211,153,.2);  color:#6ee7b7; border:1px solid rgba(52,211,153,.35); }
+.bf-hibrido   { background:rgba(167,139,250,.2); color:#c4b5fd; border:1px solid rgba(167,139,250,.35); }
+
+/* country badge */
+.badge-country {
+  position: absolute; top: 0.65rem; right: 0.85rem;
+  background: rgba(0,0,0,0.55); backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 0.2rem 0.5rem; border-radius: 5px;
+  font-size: 0.72rem; z-index: 2;
+}
+[data-theme="light"] .badge-country {
+  background: rgba(255,255,255,0.82); border-color: var(--border);
+}
+
+/* source portal badge (bottom of thumb) */
+.badge-source {
+  position: absolute; bottom: 0.65rem; right: 0.85rem;
+  background: rgba(0,0,0,0.55); backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 0.18rem 0.45rem; border-radius: 4px;
+  font-size: 0.65rem; color: rgba(255,255,255,0.55); z-index: 2;
+  font-weight: 500; letter-spacing: 0.04em;
+}
+[data-theme="light"] .badge-source {
+  background: rgba(255,255,255,0.75); color: rgba(0,0,0,0.45);
+  border-color: var(--border);
+}
+
+/* card body */
+.car-body { padding: 0.95rem 0.95rem 0.9rem 1.15rem; }
+.car-make {
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--text3); margin-bottom: 0.15rem;
+}
+.car-name { font-size: 1rem; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 0.45rem; }
+.car-specs {
+  display: flex; gap: 0.8rem; font-size: 0.76rem; color: var(--text2);
+  margin-bottom: 0.8rem; flex-wrap: wrap;
+}
+.car-price-row { display: flex; align-items: flex-end; justify-content: space-between; }
+.car-price { font-size: 1.3rem; font-weight: 700; letter-spacing: -0.02em; }
+.car-hint { font-size: 0.7rem; color: var(--text3); margin-top: 0.1rem; }
+.car-arrow { font-size: 0.75rem; font-weight: 600; color: var(--accent); opacity: 0.6; transition: opacity 0.2s; }
+.car-card:hover .car-arrow { opacity: 1; }
+
+.car-foot {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.65rem 0.95rem 0.65rem 1.15rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.73rem; color: var(--text2);
+}
+.seller-tag {
+  background: var(--surface2); border: 1px solid var(--border);
+  padding: 0.14rem 0.48rem; border-radius: 4px; font-size: 0.68rem;
+}
+
+/* ════════════════════ COUNTRIES ════════════════════ */
+.countries-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(175px, 1fr)); gap: 0.7rem;
+}
+.cc {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 9px;
+  padding: 0.95rem 1rem; display: flex; align-items: center; gap: 0.8rem;
+  cursor: pointer; text-decoration: none; color: inherit;
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+}
+.cc:hover { border-color: var(--accent); background: var(--accent-dim); transform: translateY(-2px); }
+.cc-flag { font-size: 1.65rem; line-height: 1; }
+.cc-name { font-size: 0.84rem; font-weight: 500; }
+.cc-link { font-size: 0.7rem; color: var(--text3); margin-top: 0.1rem; }
+
+/* ════════════════════ FEATURES ════════════════════ */
+.feats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(265px, 1fr)); gap: 0.9rem; }
+.feat {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 11px; padding: 1.6rem;
+  transition: border-color 0.2s, background 0.4s;
+}
+.feat:hover { border-color: var(--border2); }
+.feat-icon { font-size: 1.55rem; margin-bottom: 1rem; display: block; }
+.feat-title { font-size: 0.92rem; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 0.45rem; }
+.feat-desc { font-size: 0.83rem; font-weight: 300; color: var(--text2); line-height: 1.65; }
+
+/* ════════════════════ FOOTER ════════════════════ */
+footer {
+  border-top: 1px solid var(--border); padding: 1.75rem 2.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 0.78rem; color: var(--text3); font-weight: 300;
+  transition: border-color 0.4s;
+}
+.f-logo { display: flex; align-items: center; gap: 0.5rem; }
+.f-logo svg rect { fill: var(--text3); transition: fill 0.4s; }
+
+/* ════════════════════ STATES ════════════════════ */
+.state {
+  text-align: center; padding: 4rem 2rem;
+  color: var(--text2); font-size: 0.88rem;
+  grid-column: 1 / -1;
+}
+.spinner {
+  width: 30px; height: 30px;
+  border: 2px solid var(--border2); border-top-color: var(--accent);
+  border-radius: 50%; animation: spin 0.7s linear infinite;
+  margin: 0 auto 0.9rem;
+}
+
+/* ════════════════════ ANIMATIONS ════════════════════ */
+@keyframes up { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ════════════════════ RESPONSIVE ════════════════════ */
+@media (max-width: 720px) {
+  nav { padding: 0 1.25rem; }
+  .nav-links { display: none; }
+  .s-row { grid-template-columns: 1fr 1fr; }
+  .s-row .btn-search { grid-column: span 2; }
+  .s-adv { flex-wrap: wrap; }
+  .hero-stats { gap: 1.75rem; }
+  footer { flex-direction: column; gap: 0.6rem; text-align: center; }
+}
