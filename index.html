@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EuroCar Finder — Encuentra tu coche en Europa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ══ NAV ══════════════════════════════════════ -->
+<nav>
+  <a href="/" class="nav-logo">
+    <svg width="34" height="34" viewBox="200 200 600 600" xmlns="http://www.w3.org/2000/svg">
+      <rect width="76"  height="540" x="308.86" y="242.96" transform="matrix(1,0,-0.2588,0.9659,0,0)" rx="10"/>
+      <rect width="208" height="76"  x="368.1"  y="243.64" transform="matrix(1,0,-0.2687,0.9632,0,0)" rx="10"/>
+      <rect width="200" height="76"  x="366.45" y="465.47" transform="matrix(1,0,-0.2588,0.9659,0,0)" rx="10"/>
+      <rect width="223" height="76"  x="379.41" y="712.84" transform="matrix(1,0,-0.2866,0.9580,0,0)" rx="10"/>
+      <rect width="76"  height="540" x="682.78" y="242.96" transform="matrix(1,0,-0.2588,0.9659,0,0)" rx="10"/>
+      <rect width="205" height="76"  x="740.18" y="243.41" transform="matrix(1,0,-0.2654,0.9641,0,0)" rx="10"/>
+      <rect width="207" height="76"  x="746.39" y="708.85" transform="matrix(1,0,-0.2679,0.9634,0,0)" rx="10"/>
+    </svg>
+    <span class="nav-wordmark">Euro<em>Car</em> Finder</span>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#vehicles">Vehículos</a></li>
+    <li><a href="#countries">Países</a></li>
+    <li><a href="login.html">Iniciar sesión</a></li>
+  </ul>
+
+  <div class="nav-right">
+    <button class="theme-btn" id="themeBtn">🌙</button>
+    <a href="login.html#register" class="btn-cta">Registrarse</a>
+  </div>
+</nav>
+
+<!-- ══ HERO ══════════════════════════════════════ -->
+<section class="hero" id="inicio">
+  <!-- VIDEO PLACEHOLDER — swap this div with <video> when S3 is ready:
+    <video class="hero-bg" autoplay muted loop playsinline>
+      <source src="https://YOUR-BUCKET.s3.amazonaws.com/hero.mp4" type="video/mp4">
+    </video>
+  -->
+  <!-- <div class="hero-bg"></div> -->
+  <video class="hero-bg" autoplay muted loop playsinline>
+    <source src="video/hero.webm" type="video/webm">
+  </video>
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <p class="hero-label">10 países europeos · Precios en euros · Tiempo real</p>
+    <h1 class="hero-h1">Encuentra tu coche<br>en <b>toda</b> Europa</h1>
+    <p class="hero-p">
+      Busca y compara vehículos de segunda mano en múltiples mercados europeos desde una única plataforma.
+    </p>
+  </div>
+
+  <!-- SEARCH BOX — al buscar redirige a results.html -->
+  <div class="search-wrap" id="buscar">
+    <div class="search-box">
+      <div class="s-row">
+        <div class="sf">
+          <label>Marca</label>
+          <input type="text" id="s-brand" placeholder="BMW, Audi, Seat…">
+        </div>
+        <div class="sf">
+          <label>País</label>
+          <select id="s-country">
+            <option value="">Todos los países</option>
+            <option value="ES">🇪🇸 España</option>
+            <option value="DE">🇩🇪 Alemania</option>
+            <option value="FR">🇫🇷 Francia</option>
+            <option value="IT">🇮🇹 Italia</option>
+            <option value="GB">🇬🇧 Reino Unido</option>
+            <option value="NL">🇳🇱 Países Bajos</option>
+            <option value="PL">🇵🇱 Polonia</option>
+            <option value="BE">🇧🇪 Bélgica</option>
+            <option value="SE">🇸🇪 Suecia</option>
+            <option value="PT">🇵🇹 Portugal</option>
+          </select>
+        </div>
+        <div class="sf">
+          <label>Combustible</label>
+          <select id="s-fuel">
+            <option value="">Todos</option>
+            <option value="gasolina">Gasolina</option>
+            <option value="diesel">Diésel</option>
+            <option value="electrico">Eléctrico</option>
+            <option value="hibrido">Híbrido</option>
+          </select>
+        </div>
+        <button class="btn-search" onclick="doSearch()">Buscar</button>
+      </div>
+      <div class="s-adv">
+        <input type="number" id="s-pmin" placeholder="Precio mín €">
+        <input type="number" id="s-pmax" placeholder="Precio máx €">
+        <input type="number" id="s-ymin" placeholder="Año mín">
+        <input type="number" id="s-ymax" placeholder="Año máx">
+        <select id="s-trans">
+          <option value="">Transmisión</option>
+          <option value="manual">Manual</option>
+          <option value="automatico">Automático</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hs"><div class="hs-n" id="stat-v">—</div><div class="hs-l">Vehículos</div></div>
+    <div class="hs"><div class="hs-n">10</div><div class="hs-l">Países</div></div>
+    <div class="hs"><div class="hs-n">€</div><div class="hs-l">Todo en euros</div></div>
+    <div class="hs"><div class="hs-n">0%</div><div class="hs-l">Comisión</div></div>
+  </div>
+</section>
+
+<hr class="div">
+
+<!-- ══ VEHICLES PREVIEW ══════════════════════════ -->
+<section class="section" id="vehicles">
+  <div class="sec-head">
+    <h2 class="sec-title">Vehículos destacados</h2>
+    <span class="sec-meta" id="res-count"></span>
+  </div>
+
+  <!--
+    ╔══════════════════════════════════════════════════╗
+    ║  TARJETA DE PREVISUALIZACIÓN LOCAL               ║
+    ║  Esta tarjeta es un ejemplo hardcoded para       ║
+    ║  que puedas ver el diseño sin necesitar AWS.     ║
+    ║  El resto las genera scripts.js desde la API.    ║
+    ╚══════════════════════════════════════════════════╝
+  -->
+  <div class="cars-grid" id="cars-grid">
+
+    <!-- PREVIEW CARD — BMW (gradiente azul/rojo) -->
+    <a class="car-card"
+       href="vehicle.html?id=preview"
+       style="--bc: linear-gradient(180deg, #1c69d4 0%, #003c78 50%, #e32618 100%)">
+      <div class="car-thumb fuel-diesel">
+        <!-- Pon aquí tu logo: <img class="car-brand-logo" src="assets/brands/bmw.png" alt="BMW"> -->
+        <!-- Fallback mientras no tienes el logo: -->
+        <img class="car-brand-logo" src="fotos/bmw.png" alt="BMW">
+        <span class="bf bf-diesel">Diésel</span>
+        <span class="badge-country">🇩🇪 Alemania</span>
+        <span class="badge-source">Mobile.de</span>
+      </div>
+      <div class="car-body">
+        <div class="car-make">BMW</div>
+        <div class="car-name">Serie 3 · 2020</div>
+        <div class="car-specs">
+          <span>📍 Munich</span>
+          <span>🛣️ 41.000 km</span>
+          <span>⚙️ Auto</span>
+        </div>
+        <div class="car-price-row">
+          <div>
+            <div class="car-price">28.900 €</div>
+            <div class="car-hint">Precio en origen · ver importación →</div>
+          </div>
+          <span class="car-arrow">Ver →</span>
+        </div>
+      </div>
+      <div class="car-foot">
+        <span>BMW München</span>
+        <span class="seller-tag">🏢 Concesionario</span>
+      </div>
+    </a>
+
+    <!-- PREVIEW CARD — Tesla (rojo, eléctrico) -->
+    <a class="car-card"
+       href="vehicle.html?id=preview2"
+       style="--bc: #cc0000">
+      <div class="car-thumb fuel-electrico">
+        <img class="car-brand-logo" src="fotos/tesla.png" alt="Tesla">
+        <span class="bf bf-electrico">Eléctrico</span>
+        <span class="badge-country">🇳🇱 Países Bajos</span>
+        <span class="badge-source">Marktplaats</span>
+      </div>
+      <div class="car-body">
+        <div class="car-make">Tesla</div>
+        <div class="car-name">Model 3 · 2021</div>
+        <div class="car-specs">
+          <span>📍 Ámsterdam</span>
+          <span>🛣️ 31.000 km</span>
+          <span>⚙️ Auto</span>
+        </div>
+        <div class="car-price-row">
+          <div>
+            <div class="car-price">34.900 €</div>
+            <div class="car-hint">Precio en origen · ver importación →</div>
+          </div>
+          <span class="car-arrow">Ver →</span>
+        </div>
+      </div>
+      <div class="car-foot">
+        <span>Lars van der Berg</span>
+        <span class="seller-tag">👤 Particular</span>
+      </div>
+    </a>
+
+    <!-- PREVIEW CARD — Volvo (azul marino, híbrido) -->
+    <a class="car-card"
+       href="vehicle.html?id=preview3"
+       style="--bc: linear-gradient(180deg, #003057 0%, #005082 100%)">
+      <div class="car-thumb fuel-hibrido">
+        <img class="car-brand-logo" src="fotos/toyota.png" alt="Toyota">
+        <span class="bf bf-hibrido">Híbrido</span>
+        <span class="badge-country">🇸🇪 Suecia</span>
+        <span class="badge-source">Blocket</span>
+      </div>
+      <div class="car-body">
+        <div class="car-make">Toyota</div>
+        <div class="car-name">Yaris GT · 2026</div>
+        <div class="car-specs">
+          <span>📍 Estocolmo</span>
+          <span>🛣️ 27.000 km</span>
+          <span>⚙️ Auto</span>
+        </div>
+        <div class="car-price-row">
+          <div>
+            <div class="car-price">30.500 €</div>
+            <div class="car-hint">Precio en origen · ver importación →</div>
+          </div>
+          <span class="car-arrow">Ver →</span>
+        </div>
+      </div>
+      <div class="car-foot">
+        <span>Volvo Stockholm</span>
+        <span class="seller-tag">🏢 Concesionario</span>
+      </div>
+    </a>
+
+    <!-- API cards loaded here dynamically by scripts.js -->
+  </div>
+</section>
+
+<hr class="div">
+
+<!-- ══ COUNTRIES ════════════════════════════════ -->
+<section class="section" id="countries">
+  <div class="sec-head"><h2 class="sec-title">Explorar por país</h2></div>
+  <div class="countries-grid" id="countries-grid"></div>
+</section>
+
+<hr class="div">
+
+<!-- ══ FEATURES ═════════════════════════════════ -->
+<section class="section">
+  <div class="sec-head"><h2 class="sec-title">¿Por qué EuroCar Finder?</h2></div>
+  <div class="feats-grid">
+    <div class="feat">
+      <span class="feat-icon">🌍</span>
+      <div class="feat-title">Búsqueda paneuropea</div>
+      <p class="feat-desc">Resultados de 10 países en una sola consulta, sin cambiar de portal ni de idioma.</p>
+    </div>
+    <div class="feat">
+      <span class="feat-icon">💱</span>
+      <div class="feat-title">Conversión automática</div>
+      <p class="feat-desc">Todos los precios convertidos a euros en tiempo real, independientemente de la divisa de origen.</p>
+    </div>
+    <div class="feat">
+      <span class="feat-icon">🧮</span>
+      <div class="feat-title">Calculadora de importación</div>
+      <p class="feat-desc">Estima el coste real de importar: gestión, transporte e IVA desglosados con precisión.</p>
+    </div>
+    <div class="feat">
+      <span class="feat-icon">🔔</span>
+      <div class="feat-title">Alertas personalizadas</div>
+      <p class="feat-desc">Guarda tu búsqueda y recibe un email cuando aparezca un vehículo que se ajuste a tus criterios.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ════════════════════════════════════ -->
+<footer>
+  <div class="f-logo">
+    <svg width="22" height="22" viewBox="200 200 600 600" xmlns="http://www.w3.org/2000/svg">
+      <rect width="76"  height="540" x="308.86" y="242.96" transform="matrix(1,0,-0.2588,0.9659,0,0)" rx="10"/>
+      <rect width="208" height="76"  x="368.1"  y="243.64" transform="matrix(1,0,-0.2687,0.9632,0,0)" rx="10"/>
+      <rect width="200" height="76"  x="366.45" y="465.47" transform="matrix(1,0,-0.2588,0.9659,0,0)" rx="10"/>
+      <rect width="223" height="76"  x="379.41" y="712.84" transform="matrix(1,0,-0.2866,0.9580,0,0)" rx="10"/>
+      <rect width="76"  height="540" x="682.78" y="242.96" transform="matrix(1,0,-0.2588,0.9659,0,0)" rx="10"/>
+      <rect width="205" height="76"  x="740.18" y="243.41" transform="matrix(1,0,-0.2654,0.9641,0,0)" rx="10"/>
+      <rect width="207" height="76"  x="746.39" y="708.85" transform="matrix(1,0,-0.2679,0.9634,0,0)" rx="10"/>
+    </svg>
+    <span>EuroCar Finder</span>
+  </div>
+  <span>© 2025 · Proyecto ASIR · IES Infanta Elena, Galapagar · Szymon Korus & Deyvid Iliyanov Petrov</span>
+</footer>
+
+<script src="scripts.js"></script>
+</body>
+</html>
